@@ -1,5 +1,5 @@
 # obs_autobuild_test
-Test to see how you make OpenSUSE build services build automagically
+Test to see how you make OpenSUSE build services build automagically with GitHub
 
 Information I found sofar
 =========================
@@ -9,4 +9,13 @@ Information I found sofar
 
 Steps I took
 ============
-* Created and empty repo [https://github.com/seccubus/obs_autobuild_test]
+* Created and empty repo at https://github.com/seccubus/obs_autobuild_test
+* Created a new obs package container https://build.opensuse.org/package/show/home:seccubus/obs_autobuild_test
+* checked out the obs container
+```
+$ osc checkout obs_autobuild_test
+A    obs_autobuild_test
+At revision None.
+$
+```
+* created a new file [_service|obs/_service] in the obs_autobuild_test directory (see obs/ subdir in github)
