@@ -1,0 +1,12 @@
+<services>
+  <service name="tar_scm">
+    <param name="scm">git</param>
+    <param name="url">https://github.com/seccubus/obs_autobuild_test</param>
+    <param name="filename">obs_autobuild_test</param>
+  </service>
+  <service name="extract_file">
+    <param name="archive">*.tar</param>
+    <param name="files">*/rpm/*.spec */deb/debian* */deb/seccubus* </param>
+  </service>
+  <service name="set_version" />
+</services>
