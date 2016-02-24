@@ -18,4 +18,4 @@ A    obs_autobuild_test
 At revision None.
 $
 ```
-* created a new file [_service|obs/_service] in the obs_autobuild_test directory (see obs/ subdir in github)
+* created a new file _service in the obs_autobuild_test directory (see obs/ subdir in github at https://github.com/seccubus/obs_autobuild_test/blob/master/obs/_service)
