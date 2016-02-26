@@ -1,12 +1,31 @@
 <services>
+  <!--
+    This block downloads you source as a tar archive from github
+    -->
   <service name="tar_scm">
     <param name="scm">git</param>
     <param name="url">https://github.com/seccubus/obs_autobuild_test</param>
     <param name="filename">obs_autobuild_test</param>
+    <param name="versionprefix">0</param>
+    <!--<param name="filename">obs_autobuild_test</param>-->
   </service>
+  <!--
+    This block tells the build service to extract your spec files from the tar archive
+    -->
   <service name="extract_file">
     <param name="archive">*.tar</param>
     <param name="files">*/rpm/*.spec</param>
   </service>
+  <!--
+    This block tells the build service to recompress the tar file to a tar.gz tarbal
+    as that is what is expected by the build script
+    -->
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">gz</param>
+  </service>
+  <!--
+    Does weird version magic
+    -->
   <service name="set_version" />
 </services>
