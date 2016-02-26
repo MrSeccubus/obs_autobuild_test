@@ -1,4 +1,4 @@
-%define _topdir    /home/username/builds
+%define _topdir    /usr/src/redhat
 %define _sourcedir %{_topdir}/SOURCES
 %define _builddir  %{_topdir}/BUILD
 
