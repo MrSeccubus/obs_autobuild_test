@@ -25,10 +25,10 @@ A test to see how autobuilding works with open build services
 
 %prep
 %setup -q
-touch %{_sourcedir}/etc/bla.txt
 
 %build
 echo "Running compiler"
+touch etc/bla.txt
 
 %install
 %{__rm} -rf %{buildroot}
