@@ -27,6 +27,6 @@
   </service>
   <!--
     Does weird version magic
-    -->
   <service name="set_version" />
+    -->
 </services>
