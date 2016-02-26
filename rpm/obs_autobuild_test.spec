@@ -1,6 +1,6 @@
-#%define _topdir    /usr/src/redhat
-#%define _sourcedir %{_topdir}/SOURCES
-#%define _builddir  %{_topdir}/BUILD
+%define _topdir    /home/abuild/rpmbuild
+%define _sourcedir %{_topdir}/SOURCES
+%define _builddir  %{_topdir}/BUILD
 
 %define logmsg logger -t %{name}/rpm
 
