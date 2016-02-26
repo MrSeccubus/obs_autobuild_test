@@ -25,12 +25,14 @@ A test to see how autobuilding works with open build services
 
 %prep
 %setup -q
+touch %{_sourcedir}/etc/bla.txt
 
 %build
+echo "Running compiler"
 
 %install
 %{__rm} -rf %{buildroot}
-%{__install} -Dp -m0755 file-in-source %{buildroot}/path/to/target/server/file-in-source
+%{__install} -Dp -m0755 etc/bla %{buildroot}/etc/bla
 
 %pre
 # Pre-install steps go here.
@@ -51,6 +53,7 @@ A test to see how autobuilding works with open build services
 %doc README.md
 %defattr(-,root,root,0755)
 #/list/files/here
+/etc/bla
 
 %changelog
 
