@@ -55,7 +55,7 @@ touch etc/bla.txt
 %doc README.md
 %defattr(-,root,root,0755)
 #/list/files/here
-/etc/bla
+/etc/bla.txt
 
 %changelog
 
