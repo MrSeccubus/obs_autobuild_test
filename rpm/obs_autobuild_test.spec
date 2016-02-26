@@ -28,13 +28,13 @@ A test to see how autobuilding works with open build services
 
 %build
 pwd
-ls -alR
 echo "Running compiler"
+mkdir etc
 touch etc/bla.txt
 
 %install
 %{__rm} -rf %{buildroot}
-%{__install} -Dp -m0755 etc/bla %{buildroot}/etc/bla
+%{__install} -Dp -m0755 etc/bla.txt %{buildroot}/etc/bla.txt
 
 %pre
 # Pre-install steps go here.
