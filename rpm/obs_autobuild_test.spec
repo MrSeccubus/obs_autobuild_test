@@ -27,6 +27,8 @@ A test to see how autobuilding works with open build services
 %setup -q
 
 %build
+pwd
+ls -alR
 echo "Running compiler"
 touch etc/bla.txt
 
