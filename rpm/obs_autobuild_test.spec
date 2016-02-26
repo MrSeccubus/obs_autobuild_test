@@ -16,8 +16,8 @@ Distribution:  Group for specific distribution
 
 Source:        %{name}-%{version}.tgz
 BuildRoot:     %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-BuildRequires: /bin/rm, /bin/mkdir, /bin/cp
-Requires:      /bin/bash, /bin/date
+#BuildRequires: /bin/rm, /bin/mkdir, /bin/cp
+#Requires:      /bin/bash, /bin/date
 BuildArch:     noarch
 
 %description

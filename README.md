@@ -19,3 +19,14 @@ At revision None.
 $
 ```
 * created a new file _service in the obs_autobuild_test directory (see obs/ subdir in github at https://github.com/seccubus/obs_autobuild_test/blob/master/obs/_service)
+* checked it in
+
+* created a token
+```
+ osc token --create home:seccubus obs_autobuild_test
+Create a new token
+<status code="ok">
+  <summary>Ok</summary>
+  <data name="token">ReDaCtEdReDaCtEdReDaCtEdReDaCtEd</data>
+</status>
+```
