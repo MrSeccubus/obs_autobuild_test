@@ -6,7 +6,7 @@
     <param name="scm">git</param>
     <param name="url">https://github.com/seccubus/obs_autobuild_test</param>
     <param name="filename">obs_autobuild_test</param>
-    <param name="versionprefix">0</param>
+    <param name="versionformat">@PARENT_TAG@.@TAG_OFFSET@.g%h</param>
     <!--<param name="filename">obs_autobuild_test</param>-->
   </service>
   <!--
@@ -18,7 +18,8 @@
   </service>
   <!--
     This block tells the build service to recompress the tar file to a tar.gz tarbal
-    as that is what is expected by the build script
+    as that is what is expected by the build script.
+    Be aware that this compresses to *.tar.gz and not to *.tgz.
     -->
   <service name="recompress">
     <param name="file">*.tar</param>
