@@ -14,7 +14,7 @@ URL:           https://github.com/seccubus/obs_autobuild_test
 Vendor:        Frank Breedijk
 Distribution:  Group for specific distribution
 
-Source:        %{name}-%{version}.tgz
+Source:        %{name}-%{version}.tar.gz
 BuildRoot:     %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 #BuildRequires: /bin/rm, /bin/mkdir, /bin/cp
 #Requires:      /bin/bash, /bin/date
