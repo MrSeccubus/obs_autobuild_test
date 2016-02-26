@@ -8,6 +8,7 @@ Information I based this on
 * https://en.opensuse.org/openSUSE:Build_Service_Concept_SourceService - Still too high level
 * https://en.opensuse.org/openSUSE:Build_Service_private_instance_software_live_cycle - Pretty decent docs. Managed to trigger a build that grabs the software from scm, but then I got stuck
 * https://forums.opensuse.org/showthread.php/501869-How-to-define-these-kinds-of-version-format-in-OpenSUSE-Build-Service - Also helpful
+* irc://irc.freenode.net/openSUSE-buildservice - Open Build Service IRC channel was very helpful
 
 Steps I took
 ============
