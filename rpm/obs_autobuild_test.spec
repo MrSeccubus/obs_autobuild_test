@@ -10,8 +10,8 @@ Release:       0.1%{?dist}
 Summary:       A test to see how autobuilding works with open build services
 Group:         Group/goes/here
 License:       Apache2.0
-URL:           Not required
-Vendor:        me
+URL:           https://github.com/seccubus/obs_autobuild_test
+Vendor:        Frank Breedijk
 Distribution:  Group for specific distribution
 
 Source:        %{name}-%{version}.tgz
