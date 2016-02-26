@@ -1,13 +1,20 @@
 <services>
   <!--
     This block downloads you source as a tar archive from github
+
+    Be aware that the tag should always start with a number 
+    (see https://github.com/openSUSE/obs-service-set_version/issues/30 for details)
+
+    If you start with a letter, you will see this error:
+
+    Files could not be expanded: Running /usr/lib/obs/service/set_version - -outdir /lxc.tmp.29937/out
     -->
   <service name="tar_scm">
     <param name="scm">git</param>
     <param name="url">https://github.com/seccubus/obs_autobuild_test</param>
     <param name="filename">obs_autobuild_test</param>
-    <param name="versionformat">@PARENT_TAG@.@TAG_OFFSET@.g%h</param>
-    <!--<param name="filename">obs_autobuild_test</param>-->
+    <param name="versionformat">@PARENT_TAG@.@TAG_OFFSET@</param>
+    <param name="filename">obs_autobuild_test</param>
   </service>
   <!--
     This block tells the build service to extract your spec files from the tar archive
@@ -26,7 +33,8 @@
     <param name="compression">gz</param>
   </service>
   <!--
-    Does weird version magic
-  <service name="set_version" />
+    This updates your spec file to match the version with was was generated in the
+    tar_scm step
     -->
+  <service name="set_version" />
 </services>
