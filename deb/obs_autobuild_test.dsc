@@ -1,5 +1,5 @@
 Format: 1.0
-Source: obs_autobuild_test
+Source: obs-autobuild-test
 Version: 0.1-1
 Binary: obs-autobuild-test
 Maintainer: Frank Breedijk <fbreedijk@schubergphilis.com>
