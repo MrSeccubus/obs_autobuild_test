@@ -1,10 +1,10 @@
-Source: obs_autobuild_test
+Source: obs-autobuild_-test
 Section: misc
 Priority: optional
 Maintainer: Frank Breedijk <fbreedijk@schubergphilis.com>
 Build-Depends: debhelper (>= 4.1.16)
 
-Package: obs_autobuild_test
+Package: obs-autobuild-test
 Architecture: any
 Depends: ${shlibs:Depends}
 Description: Just this test, you know
