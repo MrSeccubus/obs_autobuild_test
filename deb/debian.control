@@ -1,13 +1,13 @@
-Source: obs_autobuild_test
-Section: misc
+Source: seccubus
+Section: net
 Priority: optional
-Maintainer: Frank Breedijk <fbreedijk@schubergphilis.com>
-Build-Depends: debhelper (>= 4.1.16)
+Maintainer: Sten Spans <sspans@schubergphilis.com>
+Build-Depends: debhelper (>= 4)
+Build-Depends-Indep: perl
+Standards-Version: 3.9.2
+Homepage: http://seccubus.com
 
-Package: obs_autobuild_test
-Architecture: any
-Depends: ${shlibs:Depends}
-Description: Just this test, you know
- Then, here there is the long description of the package... 
- also here the syntax is very painful (look at the documentation of Debian Policy
- to avoid errors http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f- Description)
+Package: seccubus
+Architecture: all
+Depends: apache2, mysql-server, ruby, libalgorithm-diff-perl, libjson-perl, libxml-simple-perl, libhtml-tree-perl
+Description: Automated regular vulnerability scanning with delta reporting
