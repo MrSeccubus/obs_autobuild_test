@@ -4,7 +4,7 @@
 
 %define logmsg logger -t %{name}/rpm
 
-Name:          obs_autobuild_test
+Name:          obs-autobuild-test
 Version:       1.0
 Release:       0.1%{?dist}
 Summary:       A test to see how autobuilding works with open build services
