@@ -18,6 +18,9 @@ Source:        %{name}-%{version}.tar.gz
 BuildRoot:     %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 #BuildRequires: /bin/rm, /bin/mkdir, /bin/cp
 #Requires:      /bin/bash, /bin/date
+Requires:      perl-Digest-MD5
+Requires:      perl-Data-Dumper
+Requires:      perl-GetOpt-Long
 BuildArch:     noarch
 
 %description
