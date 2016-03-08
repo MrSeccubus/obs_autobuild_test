@@ -2,8 +2,8 @@
   <!--
     This block downloads you source as a tar archive from github
 
-    Be aware that the tag should always start with a number 
-    (see https://github.com/openSUSE/obs-service-set_version/issues/30 for details)
+    Be aware that the tag should always start with a number
+    (See https://github.com/openSUSE/obs-service-set_version/issues/30 for details)
 
     If you start with a letter, you will see this error:
 
@@ -14,14 +14,22 @@
     <param name="url">https://github.com/seccubus/obs_autobuild_test</param>
     <param name="filename">obs_autobuild_test</param>
     <param name="versionformat">@PARENT_TAG@.@TAG_OFFSET@</param>
-    <param name="filename">obs_autobuild_test</param>
+    <param name="filename">obs-autobuild-test</param>
   </service>
   <!--
     This block tells the build service to extract your spec files from the tar archive
+
+    If you mess up with e.g. the changelog file you can get very strange results like
+    this error message
+    Files could not be expanded: TypeError: expected a character buffer object
+
+    There is an open issue on GitHub for this:
+    https://github.com/openSUSE/obs-service-extract_file/issues/9
     -->
   <service name="extract_file">
     <param name="archive">*.tar</param>
-    <param name="files">*/rpm/*.spec</param>
+    <param name="files">*/rpm/*.spec */deb/*</param>
+    <!-- <param name="files">*/rpm/*.spec */deb/*.dsc */deb/debian.control */deb/debian.rules */deb/debian.changelog</param> -->
   </service>
   <!--
     This block tells the build service to recompress the tar file to a tar.gz tarbal
