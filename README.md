@@ -46,7 +46,8 @@ In the obs container I created a file called _services with the following conten
 </services>
 ```
 
-If a built is triggered this section of the services file makes sure that the source is downloaded from GitHub and packed into a tar file with the name obs-autobuild-test.xxx.yyy.tar
+If a built is triggered this section of the services file makes sure that the source is downloaded from GitHub and packed into a tar file with the name obs-autobuild-test.xxx.yyy.tar 
+I replaced the _'s in the filename with hyphens (-) because the debian build tools seem to hate underscores.
 
 Setting the version correctly
 -----------------------------
@@ -105,11 +106,92 @@ The full services file now looks like this:
 </services>
 ```
 
+Tell OBS to extract the build files
+-----------------------------------
+Next we need to tell OBS to extract our build files. The following section of the services file does just that.
+```
+  <!--
+    This block tells the build service to extract your spec files from the tar archive
 
+    If you mess up with e.g. the changelog file you can get very strange results like
+    this error message
+    Files could not be expanded: TypeError: expected a character buffer object
+
+    There is an open issue on GitHub for this:
+    https://github.com/openSUSE/obs-service-extract_file/issues/9
+    -->
+  <service name="extract_file">
+    <param name="archive">*.tar</param>
+    <param name="files">*/rpm/*.spec */deb/*</param>
+  </service>
+```
+If basically tells obs to look for a file matching the *.tar pattern and extract files matching */rpm/*.spec and */deb/* from it. 
+Attention: Some other services do pre-checking on the debian files as they are extracted. If you see the error below it is most likely because one of you debian files is not correctly formatted. For me is was the debian.changelog that was not working as expected.
+
+```
+Files could not be expanded: TypeError: expected a character buffer object
+```
+If this happens add individual files to the pattern instead of the */deb/* (e.g. */deb/debian.changelog) to find out which file is the offending one.
+
+Tell OBS to recompress the tar file
+-----------------------------------
+Lots of build utilities expect a *.tar.gz file instead of a *.tar file, the recompress service allows you to compress the downloaded tar file.
+
+```
+  <!--
+    This block tells the build service to recompress the tar file to a tar.gz tarbal
+    as that is what is expected by the build script.
+    Be aware that this compresses to *.tar.gz and not to *.tgz.
+    -->
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">gz</param>
+  </service>
+```
+In this case files matching *.tar are compressed using gz compression.
+
+Tell OBS to update your build files
+-----------------------------------
+Your *.spec file, *.dsc and debian.changelog file all contain version specific strings that need to be matched to the version set during the scm_tar phase. The set_version service does that for you. No need to specify any parameters here.
+
+```
+  <!--
+    This updates your spec file to match the version with was was generated in the
+    tar_scm step
+    -->
+  <service name="set_version" />
+```
+
+If you want to know more about the api or of the parameters to the services run the following command:
+```
+$ osc api /service |less
+```
+It give you a fairly decent description of all available service.
+
+Writing the *.spec file to create an rpm
+----------------------------------------
+You can see the *.spec file here: https://github.com/seccubus/obs_autobuild_test/tree/master/rpm. 
+This is a very skeletal spec file that only does a few things:
+* Set the topdir to /home/abuild/rpmbuild as is used by OBS for RH/CentOS 6 and 7 builds
+* Create a etc directory
+* Touches etc/bla.txt
+* Installs etc/bla.txt
+
+Writing the files to create a .deb file
+---------------------------------------
+You need to create all the files that are here: https://github.com/seccubus/obs_autobuild_test/tree/master/deb
+If you want to understand these files, then look here: https://en.opensuse.org/openSUSE:Build_Service_Debian_builds#Minimum_set_of_files_required_to_create_.deb
+
+A couple of remarks though:
+* I learned the hard way that OBS hates underscores in files names. Hence obs_autobuild_test.dsc has obs-autobuild-test as source and binary name
+* Same goes for source and binary in debian.control
+* Same goes for debian.changelog
+* All the magic happens in debian.rules
 
 Make GitHub trigger a build
 ---------------------------
-* created a token
+In order for GitHub to trigger your build you will need to generate a token. The command osc token --create <project> <container> will do this for you.
+
 ```
 $ osc token --create home:seccubus obs_autobuild_test
 Create a new token
@@ -118,6 +200,29 @@ Create a new token
   <data name="token">ReDaCtEdReDaCtEdReDaCtEdReDaCtEd</data>
 </status>
 ```
+
+You can use this token to trigger a build manually.
+
+```
+$ osc token --trigger ReDaCtEdReDaCtEdReDaCtEdReDaCtEd
+Trigger token
+<status code="ok" />
+```
+
+You can also have GitHub trigger this automatically. To do this execute the following steps:
+* Go to you repository, in my case: https://github.com/seccubus/obs_autobuild_test
+* Click settings: https://github.com/seccubus/obs_autobuild_test/settings
+* Click 'Webhooks & services': https://github.com/seccubus/obs_autobuild_test/settings/hooks
+* Click the 'Add service v' button and select the 'Obs' service: https://github.com/seccubus/obs_autobuild_test/settings/hooks/new?service=obs
+* Follow the instructions on the screen
+
+Provide the following parameters:
+* Url - You only need to provide this when you have your own instance of OBS, you can leave this blank if you use https://build.opensuse.org
+* Project - Your OBS project, in my case home:seccubus
+* Package - Your OBS package, in my case obs_autobuild_test
+* Refs - A GitHub ref to e.g. a branch that will trigger a build. It is smart to set this to e.g. refs/heads/master or refs/heads/releases so that only commits to the master or releases branch will trigger a package build
+* Token - The token you generated above in my case ReDaCtEdReDaCtEdReDaCtEdReDaCtEd ;)
+
 
 
 Information I based this on
@@ -128,4 +233,5 @@ Information I based this on
 * https://en.opensuse.org/openSUSE:Build_Service_private_instance_software_live_cycle - Pretty decent docs. Managed to trigger a build that grabs the software from scm, but then I got stuck
 * https://forums.opensuse.org/showthread.php/501869-How-to-define-these-kinds-of-version-format-in-OpenSUSE-Build-Service - Also helpful
 * irc://irc.freenode.net/openSUSE-buildservice - Open Build Service IRC channel was very helpful
+* https://gist.github.com/iandexter/966212 - A skeleton spec file
 * https://en.opensuse.org/openSUSE:Build_Service_Debian_builds#Minimum_set_of_files_required_to_create_.deb - Information on how to make a deb package

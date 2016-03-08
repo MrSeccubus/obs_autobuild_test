@@ -12,7 +12,6 @@
   <service name="tar_scm">
     <param name="scm">git</param>
     <param name="url">https://github.com/seccubus/obs_autobuild_test</param>
-    <param name="filename">obs_autobuild_test</param>
     <param name="versionformat">@PARENT_TAG@.@TAG_OFFSET@</param>
     <param name="filename">obs-autobuild-test</param>
   </service>
@@ -29,7 +28,6 @@
   <service name="extract_file">
     <param name="archive">*.tar</param>
     <param name="files">*/rpm/*.spec */deb/*</param>
-    <!-- <param name="files">*/rpm/*.spec */deb/*.dsc */deb/debian.control */deb/debian.rules */deb/debian.changelog</param> -->
   </service>
   <!--
     This block tells the build service to recompress the tar file to a tar.gz tarbal
